@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<title>Page 1</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../css/health.css">
+
+<script type="text/javascript" src="../js/angular.min.js"></script>
+
+<script type="text/javascript" src="../js/fusioncharts.js"></script>
+
+<script type="text/javascript" src="../js/angular-fusioncharts.min.js"></script>
+
+<script type="text/javascript" src="../js/fusioncharts.charts.js"></script>
+
+
+
+<body>
+
+  <div ng-app="myApp" ng-controller="myCtrl" class="mainBody">
+
+    <div class="floatLeft">
+
+      <img src="../images/menu.jpg" />
+
+    </div>
+
+    <div class="floatRight">
+
+      <img src="../images/facesmall.jpg" />
+
+    </div>
+
+    <div class="titleSection">
+
+      <div>Welcome back {{personDetails.caption}},</div>
+
+      <div>Things look <span class="healthNormal">{{personDetails.subCaption}}</span></div>
+
+    </div>
+
+    <table id="healReport" class="tableData">
+
+      <tr>
+
+        <td>
+
+          <p>{{personDetails.healthReport.temparature}}</p>
+
+          <p><img src="../images/temparature.jpg" /></p>
+
+        </td>
+
+        <td>
+
+          <p>{{personDetails.healthReport.caloriesBurned}}
+
+            <p><img src="../images/calories.jpg" /></p>
+
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+
+          <p>{{personDetails.healthReport.stepsWalked}}</p>
+
+          <p id="healthBar" class="myBar">{{CommonUtils.adjustBarWidth("healthBar", personDetails.healthReport.stepsWalked)}}</p>
+
+        </td>
+
+        <td>
+
+          <p>{{personDetails.healthReport.bpm}}</p>
+
+          <p><img src="../images/bpm.jpg" /></p>
+
+        </td>
+
+      </tr>
+
+    </table>
+
+
+
+    <div fusioncharts width="350" height="400" type="MSArea" dataSource="{{myDataSource}}">
+
+    </div>
+
+  </div>
+
+
+
+  <script type="text/javascript">
+    var app = angular.module('myApp', ["ng-fusioncharts"]);
+
+    app.controller('myCtrl', function($scope) {
+
+      $scope.personDetails = {
+        "caption": "Jana",
+        "subCaption": "allright",
+        "healthReport": {
+          "temparature": "36.75",
+          "caloriesBurned": "537",
+          "stepsWalked": "3342",
+          "bpm": "87"
+        }
+      };
+
+
+
+      $scope.myDataSource = {
+
+        "chart": {
+
+          "caption": "Moving activity",
+
+          "subCaption": "Today vs Average",
+
+          "paletteColors": "#99ccff,#99ccff",
+
+          "bgColor": "#ffffff",
+
+          "showBorder": "0",
+
+          "showCanvasBorder": "0",
+
+          "plotBorderAlpha": "10",
+
+          "usePlotGradientColor": "0",
+
+          "legendBorderAlpha": "0",
+
+          "legendShadow": "0",
+
+          "plotFillAlpha": "60",
+
+          "showXAxisLine": "1",
+
+          "showYAxisValues": "0",
+
+          "showXAxisValues": "0",
+
+          "axisLineAlpha": "25",
+
+          "showValues": "0",
+
+          "captionFontSize": "14",
+
+          "subcaptionFontSize": "14",
+
+          "subcaptionFontBold": "0",
+
+          "divlineColor": "#999999",
+
+          "divLineDashed": "1",
+
+          "divLineDashLen": "1",
+
+          "showAlternateHGridColor": "0",
+
+          "toolTipColor": "#ffffff",
+
+          "toolTipBorderThickness": "0",
+
+          "toolTipBgColor": "#000000",
+
+          "toolTipBgAlpha": "80",
+
+          "toolTipBorderRadius": "2",
+
+          "toolTipPadding": "5"
+
+        },
+
+        "categories": [
+
+          {
+
+            "category": [
+
+              {
+
+                "label": "Mon"
+
+              },
+
+              {
+
+                "label": "Tue"
+
+              },
+
+              {
+
+                "label": "Wed"
+
+              },
+
+              {
+
+                "label": "Thu"
+
+              },
+
+              {
+
+                "label": "Fri"
+
+              },
+
+              {
+
+                "label": "Sat"
+
+              },
+
+              {
+
+                "label": "Sun"
+
+              }
+
+            ]
+
+          }
+
+        ],
+
+        "dataset": [
+
+          {
+
+            "seriesname": "00",
+
+            "data": [
+
+              {
+
+                "value": "16500"
+
+              },
+
+              {
+
+                "value": "5000"
+
+              },
+
+              {
+
+                "value": "4500"
+
+              },
+
+              {
+
+                "value": "8500"
+
+              },
+
+              {
+
+                "value": "15500"
+
+              },
+
+              {
+
+                "value": "17500"
+
+              },
+
+              {
+
+                "value": "13000"
+
+              }
+
+            ]
+
+          },
+
+          {
+
+            "seriesname": "08",
+
+            "data": [
+
+              {
+
+                "value": "8400"
+
+              },
+
+              {
+
+                "value": "9800"
+
+              },
+
+              {
+
+                "value": "11800"
+
+              },
+
+              {
+
+                "value": "14400"
+
+              },
+
+              {
+
+                "value": "18800"
+
+              },
+
+              {
+
+                "value": "20800"
+
+              },
+
+              {
+
+                "value": "13800"
+
+              }
+
+            ]
+
+          }
+
+        ]
+
+      };
+
+
+
+      $scope.CommonUtils = {
+
+        adjustBarWidth: function(elementId, widthVal) {
+
+          document.getElementById(elementId).style.width = (widthVal / 100) + "px";
+
+        }
+
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
